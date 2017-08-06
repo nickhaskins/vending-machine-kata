@@ -16,5 +16,15 @@ TEST(VendingMachineTest, AddQuarterDisplaysCurrentAmount) {
 	EXPECT_EQ(vending_machine.GetDisplay(), "0.25");
 }
 
+TEST(VendingMachineTest, CurrentAmountDependsOnCoinAdded) {
+	VendingMachine vending_machine;
+	vending_machine.AddCoin(DIME);
+	EXPECT_EQ(vending_machine.GetDisplay(), "0.10");
+
+	vending_machine = VendingMachine();
+	vending_machine.AddCoin(NICKEL);
+	EXPECT_EQ(vending_machine.GetDisplay(), "0.05");
+}
+
 }  // namespace
 }  // namespace vending_machine_kata

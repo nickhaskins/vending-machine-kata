@@ -1,5 +1,6 @@
 #include "vending_machine.h"
 
+#include <iomanip>
 #include <sstream>
 
 namespace vending_machine_kata {
@@ -12,13 +13,26 @@ std::string VendingMachine::GetDisplay() const {
 		return "INSERT COIN";
 	} else {
 		std::stringstream sstream;
-		sstream << (current_amount_ / 100.0);
+		sstream << std::fixed << std::setprecision(2)
+		        << (current_amount_ / 100.0);
 		return sstream.str();
 	}
 }
 
 void VendingMachine::AddCoin(Coin coin) {
-	current_amount_ = 25;
+	switch (coin) {
+		case QUARTER:
+			current_amount_ = 25;
+			break;
+		case DIME:
+			current_amount_ = 10;
+			break;
+		case NICKEL:
+			current_amount_ = 5;
+			break;
+		default:
+			break;
+	}
 }
 
 
