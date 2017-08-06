@@ -73,7 +73,7 @@ void VendingMachine::PurchaseProduct(Product product) {
 		dispensed_products_.push_back(product_to_dispense);
 	} else {
 		display_price_ = true;
-		price_to_display_ = 100;
+		price_to_display_ = price;
 	}
 }
 

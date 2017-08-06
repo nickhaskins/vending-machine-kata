@@ -80,6 +80,11 @@ TEST_F(VendingMachineTest, PurchasingWithoutEnoughFundsDisplaysPrice) {
 
 TEST_F(VendingMachineTest, ProductPriceAndDispensedDependsOnProduct) {
 	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.PurchaseProduct(CHIPS);
+	EXPECT_EQ(vending_machine_.GetDispensedProducts(),
+	          std::vector<std::string>());
+	EXPECT_EQ(vending_machine_.GetDisplay(), "PRICE 0.50");
+
 	vending_machine_.AddCoin(QUARTER);
 	vending_machine_.PurchaseProduct(CHIPS);
 	std::vector<std::string> expected_products;
