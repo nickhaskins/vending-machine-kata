@@ -22,7 +22,7 @@ enum Product {
 
 class VendingMachine {
  public:
-  VendingMachine();
+  VendingMachine(int num_colas, int num_chips, int num_candies);
 
   std::string GetDisplay();
 
@@ -43,6 +43,10 @@ class VendingMachine {
   bool display_price_;
   int price_to_display_;
   std::vector<Coin> coin_return_;
+
+  int colas_;
+  int chips_;
+  int candies_;
 };
 
 

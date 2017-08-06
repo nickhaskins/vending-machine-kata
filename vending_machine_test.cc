@@ -7,6 +7,8 @@ namespace {
 
 class VendingMachineTest : public ::testing::Test {
  protected:
+  VendingMachineTest() : vending_machine_(5, 2, 1) {}
+
   VendingMachine vending_machine_;
 };
 
@@ -23,7 +25,7 @@ TEST_F(VendingMachineTest, CurrentAmountDependsOnCoinAdded) {
 	vending_machine_.AddCoin(DIME);
 	EXPECT_EQ(vending_machine_.GetDisplay(), "0.10");
 
-	vending_machine_ = VendingMachine();
+	vending_machine_ = VendingMachine(5, 5, 5);
 	vending_machine_.AddCoin(NICKEL);
 	EXPECT_EQ(vending_machine_.GetDisplay(), "0.05");
 }
@@ -134,6 +136,26 @@ TEST_F(VendingMachineTest, ChangeReturnedVariesBasedOnCurrentAmount) {
 	std::vector<Coin> expected_coin_return;
 	expected_coin_return.push_back(NICKEL);
 	EXPECT_EQ(vending_machine_.GetCoinReturn(),  expected_coin_return);
+}
+
+TEST_F(VendingMachineTest, DisplaysSoldOutDoesNotDispenseWhenOutOfProduct) {
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(DIME);
+	vending_machine_.AddCoin(NICKEL);
+	vending_machine_.PurchaseProduct(CANDY);
+	std::vector<std::string> expected_products;
+	expected_products.push_back("candy");
+	EXPECT_EQ(vending_machine_.GetDispensedProducts(), expected_products);
+	EXPECT_EQ(vending_machine_.GetDisplay(), "THANK YOU");
+
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(DIME);
+	vending_machine_.AddCoin(NICKEL);
+	vending_machine_.PurchaseProduct(CANDY);
+	EXPECT_EQ(vending_machine_.GetDispensedProducts(),
+	          std::vector<std::string>());
 }
 
 }  // namespace

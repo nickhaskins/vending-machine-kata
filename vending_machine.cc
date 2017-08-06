@@ -5,9 +5,10 @@
 
 namespace vending_machine_kata {
 
-VendingMachine::VendingMachine()
+VendingMachine::VendingMachine(int num_colas, int num_chips, int num_candies)
     : current_amount_(0), just_purchased_(false),
-	  display_price_(false), price_to_display_(0) {}
+	  display_price_(false), price_to_display_(0),
+	  colas_(num_colas), chips_(num_chips), candies_(num_candies) {}
 
 std::string VendingMachine::GetDisplay() {
 	if (just_purchased_) {
@@ -54,6 +55,9 @@ std::vector<Coin> VendingMachine::GetCoinReturn() {
 }
 
 void VendingMachine::PurchaseProduct(Product product) {
+	if (product == CANDY && candies_ == 0) {
+		return;
+	}
 	int price = 0;
 	std::string product_to_dispense = "";
 	switch (product) {
@@ -72,6 +76,9 @@ void VendingMachine::PurchaseProduct(Product product) {
 	}
 	if (current_amount_ >= price) {
 		just_purchased_ = true;
+		if (product == CANDY) {
+			candies_ -= 1;
+		}
 		std::vector<Coin> change = MakeChange(current_amount_ - price);
 		for (int i = 0; i < change.size(); ++i) {
 			coin_return_.push_back(change[i]);
