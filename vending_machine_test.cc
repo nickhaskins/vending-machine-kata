@@ -68,5 +68,14 @@ TEST_F(VendingMachineTest, PurchasingProductDisplaysThankYouThenResets) {
 	EXPECT_EQ(vending_machine_.GetDisplay(), "0.05");
 }
 
+TEST_F(VendingMachineTest, PurchasingWithoutEnoughFundsDisplaysPrice) {
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.PurchaseProduct(COLA);
+	EXPECT_EQ(vending_machine_.GetDispensedProducts(),
+	          std::vector<std::string>());
+	EXPECT_EQ(vending_machine_.GetDisplay(), "PRICE 1.00");
+	EXPECT_EQ(vending_machine_.GetDisplay(), "0.25");
+}
+
 }  // namespace
 }  // namespace vending_machine_kata

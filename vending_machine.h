@@ -37,6 +37,10 @@ class VendingMachine {
  private:
   int current_amount_;
   bool just_purchased_;
+  std::vector<std::string> dispensed_products_;
+  bool display_price_;
+  int price_to_display_;
+
 };
 
 
