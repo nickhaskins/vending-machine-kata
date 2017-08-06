@@ -64,7 +64,8 @@ void VendingMachine::PurchaseProduct(Product product) {
 			price = 50;
 			product_to_dispense = "chips";
 			break;
-		default:
+		case CANDY:
+			price = 65;
 			break;
 	}
 	if (current_amount_ == price) {
@@ -78,7 +79,9 @@ void VendingMachine::PurchaseProduct(Product product) {
 }
 
 std::vector<std::string> VendingMachine::GetDispensedProducts() {
-	return dispensed_products_;
+	std::vector<std::string> to_return;
+	to_return.swap(dispensed_products_);
+	return to_return;
 }
 
 
