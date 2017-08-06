@@ -72,8 +72,9 @@ void VendingMachine::PurchaseProduct(Product product) {
 	}
 	if (current_amount_ >= price) {
 		just_purchased_ = true;
-		if (current_amount_ > price) {
-			coin_return_.push_back(QUARTER);
+		std::vector<Coin> change = MakeChange(current_amount_ - price);
+		for (int i = 0; i < change.size(); ++i) {
+			coin_return_.push_back(change[i]);
 		}
 		current_amount_ = 0;
 		dispensed_products_.push_back(product_to_dispense);
@@ -81,6 +82,25 @@ void VendingMachine::PurchaseProduct(Product product) {
 		display_price_ = true;
 		price_to_display_ = price;
 	}
+}
+
+std::vector<Coin> VendingMachine::MakeChange(int amount) {
+	int quarters = amount / 25;
+	amount -= quarters * 25;
+	int dimes = amount / 10;
+	amount -= dimes * 10;
+	int nickels = amount / 5;
+	std::vector<Coin> result;
+	for (int i = 0; i < quarters; ++i) {
+		result.push_back(QUARTER);
+	}
+	for (int i = 0; i < dimes; ++i) {
+		result.push_back(DIME);
+	}
+	for (int i = 0; i < nickels; ++i) {
+		result.push_back(NICKEL);
+	}
+	return result;
 }
 
 std::vector<std::string> VendingMachine::GetDispensedProducts() {

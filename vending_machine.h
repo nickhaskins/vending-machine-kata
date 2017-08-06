@@ -35,6 +35,8 @@ class VendingMachine {
   std::vector<std::string> GetDispensedProducts();
 
  private:
+  std::vector<Coin> MakeChange(int amount);
+
   int current_amount_;
   bool just_purchased_;
   std::vector<std::string> dispensed_products_;
