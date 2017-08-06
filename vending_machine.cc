@@ -7,13 +7,16 @@ namespace vending_machine_kata {
 
 VendingMachine::VendingMachine(int num_colas, int num_chips, int num_candies)
     : current_amount_(0), just_purchased_(false),
-	  display_price_(false), price_to_display_(0),
+	  display_price_(false), price_to_display_(0), display_sold_out_(false),
 	  colas_(num_colas), chips_(num_chips), candies_(num_candies) {}
 
 std::string VendingMachine::GetDisplay() {
 	if (just_purchased_) {
 		just_purchased_ = false;
 		return "THANK YOU";
+	} else if (display_sold_out_) {
+		display_sold_out_ = false;
+		return "SOLD OUT";
 	} else if (display_price_) {
 		display_price_ = false;
 		std::stringstream sstream;
@@ -56,6 +59,7 @@ std::vector<Coin> VendingMachine::GetCoinReturn() {
 
 void VendingMachine::PurchaseProduct(Product product) {
 	if (product == CANDY && candies_ == 0) {
+		display_sold_out_ = true;
 		return;
 	}
 	int price = 0;

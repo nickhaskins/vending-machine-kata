@@ -156,6 +156,7 @@ TEST_F(VendingMachineTest, DisplaysSoldOutDoesNotDispenseWhenOutOfProduct) {
 	vending_machine_.PurchaseProduct(CANDY);
 	EXPECT_EQ(vending_machine_.GetDispensedProducts(),
 	          std::vector<std::string>());
+	EXPECT_EQ(vending_machine_.GetDisplay(), "SOLD OUT");
 }
 
 }  // namespace

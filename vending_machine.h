@@ -44,6 +44,7 @@ class VendingMachine {
   int price_to_display_;
   std::vector<Coin> coin_return_;
 
+  bool display_sold_out_;
   int colas_;
   int chips_;
   int candies_;
