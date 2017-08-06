@@ -6,9 +6,23 @@
 namespace vending_machine_kata {
 
 
+enum Coin {
+	PENNY,
+	NICKEL,
+	DIME,
+	QUARTER
+};
+
 class VendingMachine {
  public:
+  VendingMachine();
+
   std::string GetDisplay() const;
+
+  void AddCoin(Coin coin);
+
+ private:
+  int current_amount_;
 };
 
 
