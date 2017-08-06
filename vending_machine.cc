@@ -53,10 +53,24 @@ std::vector<Coin> VendingMachine::GetCoinReturn() {
 }
 
 void VendingMachine::PurchaseProduct(Product product) {
-	if (current_amount_ == 100) {
+	int price = 0;
+	std::string product_to_dispense = "";
+	switch (product) {
+		case COLA:
+			price = 100;
+			product_to_dispense = "cola";
+			break;
+		case CHIPS:
+			price = 50;
+			product_to_dispense = "chips";
+			break;
+		default:
+			break;
+	}
+	if (current_amount_ == price) {
 		just_purchased_ = true;
 		current_amount_ = 0;
-		dispensed_products_.push_back("cola");
+		dispensed_products_.push_back(product_to_dispense);
 	} else {
 		display_price_ = true;
 		price_to_display_ = 100;

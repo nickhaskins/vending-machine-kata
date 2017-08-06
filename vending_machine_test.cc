@@ -70,11 +70,21 @@ TEST_F(VendingMachineTest, PurchasingProductDisplaysThankYouThenResets) {
 
 TEST_F(VendingMachineTest, PurchasingWithoutEnoughFundsDisplaysPrice) {
 	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
 	vending_machine_.PurchaseProduct(COLA);
 	EXPECT_EQ(vending_machine_.GetDispensedProducts(),
 	          std::vector<std::string>());
 	EXPECT_EQ(vending_machine_.GetDisplay(), "PRICE 1.00");
-	EXPECT_EQ(vending_machine_.GetDisplay(), "0.25");
+	EXPECT_EQ(vending_machine_.GetDisplay(), "0.50");
+}
+
+TEST_F(VendingMachineTest, ProductPriceAndDispensedDependsOnProduct) {
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.PurchaseProduct(CHIPS);
+	std::vector<std::string> expected_products;
+	expected_products.push_back("chips");
+	EXPECT_EQ(vending_machine_.GetDispensedProducts(), expected_products);
 }
 
 }  // namespace
