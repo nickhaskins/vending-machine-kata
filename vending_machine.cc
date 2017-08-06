@@ -6,10 +6,13 @@
 namespace vending_machine_kata {
 
 VendingMachine::VendingMachine()
-    : current_amount_(0) {}
+    : current_amount_(0), just_purchased_(false) {}
 
-std::string VendingMachine::GetDisplay() const {
-	if (current_amount_ == 0) {
+std::string VendingMachine::GetDisplay() {
+	if (just_purchased_) {
+		just_purchased_ = false;
+		return "THANK YOU";
+	} else if (current_amount_ == 0) {
 		return "INSERT COIN";
 	} else {
 		std::stringstream sstream;
@@ -40,6 +43,8 @@ std::vector<Coin> VendingMachine::GetCoinReturn() {
 }
 
 void VendingMachine::PurchaseProduct(Product product) {
+	just_purchased_ = true;
+	current_amount_ = 0;
 }
 
 std::vector<std::string> VendingMachine::GetDispensedProducts() {

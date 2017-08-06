@@ -24,7 +24,7 @@ class VendingMachine {
  public:
   VendingMachine();
 
-  std::string GetDisplay() const;
+  std::string GetDisplay();
 
   void AddCoin(Coin coin);
 
@@ -36,6 +36,7 @@ class VendingMachine {
 
  private:
   int current_amount_;
+  bool just_purchased_;
 };
 
 

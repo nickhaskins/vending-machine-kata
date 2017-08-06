@@ -51,6 +51,21 @@ TEST_F(VendingMachineTest, AddingADollarAndPurchasingColaDispensesCola) {
 	std::vector<std::string> expected_products;
 	expected_products.push_back("cola");
 	EXPECT_EQ(vending_machine_.GetDispensedProducts(), expected_products);
+	EXPECT_EQ(vending_machine_.GetDisplay(), "THANK YOU");
+	EXPECT_EQ(vending_machine_.GetDisplay(), "INSERT COIN");
+}
+
+TEST_F(VendingMachineTest, PurchasingProductDisplaysThankYouThenResets) {
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.PurchaseProduct(COLA);
+	EXPECT_EQ(vending_machine_.GetDisplay(), "THANK YOU");
+	EXPECT_EQ(vending_machine_.GetDisplay(), "INSERT COIN");
+
+	vending_machine_.AddCoin(NICKEL);
+	EXPECT_EQ(vending_machine_.GetDisplay(), "0.05");
 }
 
 }  // namespace
