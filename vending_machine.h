@@ -35,6 +35,8 @@ class VendingMachine {
 
   std::vector<std::string> GetDispensedProducts();
 
+  void ReturnCoins();
+
  private:
   int current_amount_;
 

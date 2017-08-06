@@ -6,21 +6,22 @@
 namespace vending_machine_kata {
 namespace {
 
-std::vector<Coin> MakeChange(int amount) {
+std::multiset<Coin> MakeChange(int amount) {
 	int quarters = amount / 25;
 	amount -= quarters * 25;
 	int dimes = amount / 10;
 	amount -= dimes * 10;
 	int nickels = amount / 5;
-	std::vector<Coin> result;
+
+	std::multiset<Coin> result;
 	for (int i = 0; i < quarters; ++i) {
-		result.push_back(QUARTER);
+		result.insert(QUARTER);
 	}
 	for (int i = 0; i < dimes; ++i) {
-		result.push_back(DIME);
+		result.insert(DIME);
 	}
 	for (int i = 0; i < nickels; ++i) {
-		result.push_back(NICKEL);
+		result.insert(NICKEL);
 	}
 	return result;
 }
@@ -98,10 +99,8 @@ void VendingMachine::PurchaseProduct(Product product) {
 		if (product == CANDY) {
 			candies_ -= 1;
 		}
-		std::vector<Coin> change = MakeChange(current_amount_ - price);
-		for (int i = 0; i < change.size(); ++i) {
-			coin_return_.insert(change[i]);
-		}
+		std::multiset<Coin> change = MakeChange(current_amount_ - price);
+		coin_return_.insert(change.begin(), change.end());
 		current_amount_ = 0;
 		dispensed_products_.push_back(product_to_dispense);
 	} else {
@@ -114,6 +113,11 @@ std::vector<std::string> VendingMachine::GetDispensedProducts() {
 	std::vector<std::string> to_return;
 	to_return.swap(dispensed_products_);
 	return to_return;
+}
+
+void VendingMachine::ReturnCoins() {
+	std::multiset<Coin> to_return = MakeChange(current_amount_);
+	coin_return_.insert(to_return.begin(), to_return.end());
 }
 
 

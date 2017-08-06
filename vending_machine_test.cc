@@ -138,6 +138,16 @@ TEST_F(VendingMachineTest, ChangeReturnedVariesBasedOnCurrentAmount) {
 	EXPECT_EQ(vending_machine_.GetCoinReturn(),  expected_coin_return);
 }
 
+TEST_F(VendingMachineTest, ReturnsCoinsWhenRequested) {
+	vending_machine_.AddCoin(NICKEL);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.ReturnCoins();
+	std::multiset<Coin> expected_coin_return;
+	expected_coin_return.insert(NICKEL);
+	expected_coin_return.insert(QUARTER);
+	EXPECT_EQ(vending_machine_.GetCoinReturn(), expected_coin_return);
+}
+
 TEST_F(VendingMachineTest, DisplaysSoldOutDoesNotDispenseWhenOutOfProduct) {
 	vending_machine_.AddCoin(QUARTER);
 	vending_machine_.AddCoin(QUARTER);
