@@ -42,5 +42,16 @@ TEST_F(VendingMachineTest, AddingPennyRejected) {
 	EXPECT_EQ(vending_machine_.GetCoinReturn(), expected_coin_return);
 }
 
+TEST_F(VendingMachineTest, AddingADollarAndPurchasingColaDispensesCola) {
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.PurchaseProduct(COLA);
+	std::vector<std::string> expected_products;
+	expected_products.push_back("cola");
+	EXPECT_EQ(vending_machine_.GetDispensedProducts(), expected_products);
+}
+
 }  // namespace
 }  // namespace vending_machine_kata

@@ -14,6 +14,12 @@ enum Coin {
 	QUARTER
 };
 
+enum Product {
+	COLA,
+	CHIPS,
+	CANDY
+};
+
 class VendingMachine {
  public:
   VendingMachine();
@@ -23,6 +29,10 @@ class VendingMachine {
   void AddCoin(Coin coin);
 
   std::vector<Coin> GetCoinReturn();
+
+  void PurchaseProduct(Product product);
+
+  std::vector<std::string> GetDispensedProducts();
 
  private:
   int current_amount_;

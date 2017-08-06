@@ -39,5 +39,12 @@ std::vector<Coin> VendingMachine::GetCoinReturn() {
 	return std::vector<Coin>(1, PENNY);
 }
 
+void VendingMachine::PurchaseProduct(Product product) {
+}
+
+std::vector<std::string> VendingMachine::GetDispensedProducts() {
+	return std::vector<std::string>(1, "cola");
+}
+
 
 }  // namespace vending_machine_kata
