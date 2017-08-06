@@ -2,6 +2,7 @@
 #define VENDING_MACHINE_KATA_VENDING_MACHINE_H_
 
 #include <string>
+#include <vector>
 
 namespace vending_machine_kata {
 
@@ -20,6 +21,8 @@ class VendingMachine {
   std::string GetDisplay() const;
 
   void AddCoin(Coin coin);
+
+  std::vector<Coin> GetCoinReturn();
 
  private:
   int current_amount_;

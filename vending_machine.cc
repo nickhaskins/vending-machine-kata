@@ -35,5 +35,9 @@ void VendingMachine::AddCoin(Coin coin) {
 	}
 }
 
+std::vector<Coin> VendingMachine::GetCoinReturn() {
+	return std::vector<Coin>(1, PENNY);
+}
+
 
 }  // namespace vending_machine_kata
