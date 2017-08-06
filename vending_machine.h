@@ -40,7 +40,7 @@ class VendingMachine {
   std::vector<std::string> dispensed_products_;
   bool display_price_;
   int price_to_display_;
-
+  std::vector<Coin> coin_return_;
 };
 
 

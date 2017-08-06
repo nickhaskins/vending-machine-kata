@@ -108,5 +108,19 @@ TEST_F(VendingMachineTest, ProductPriceAndDispensedDependsOnProduct) {
 	EXPECT_EQ(vending_machine_.GetDisplay(), "THANK YOU");
 }
 
+TEST_F(VendingMachineTest, ReturnsChangeWhenCurrentAmountGreaterThanPrice) {
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.PurchaseProduct(CHIPS);
+	std::vector<std::string> expected_products;
+	expected_products.push_back("chips");
+	EXPECT_EQ(vending_machine_.GetDispensedProducts(), expected_products);
+	EXPECT_EQ(vending_machine_.GetDisplay(), "THANK YOU");
+	std::vector<Coin> expected_coin_return;
+	expected_coin_return.push_back(QUARTER);
+	EXPECT_EQ(vending_machine_.GetCoinReturn(),  expected_coin_return);
+}
+
 }  // namespace
 }  // namespace vending_machine_kata

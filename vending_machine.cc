@@ -44,12 +44,13 @@ void VendingMachine::AddCoin(Coin coin) {
 			current_amount_ += 5;
 			break;
 		default:
+			coin_return_.push_back(coin);
 			break;
 	}
 }
 
 std::vector<Coin> VendingMachine::GetCoinReturn() {
-	return std::vector<Coin>(1, PENNY);
+	return coin_return_;
 }
 
 void VendingMachine::PurchaseProduct(Product product) {
@@ -69,8 +70,11 @@ void VendingMachine::PurchaseProduct(Product product) {
 			product_to_dispense = "candy";
 			break;
 	}
-	if (current_amount_ == price) {
+	if (current_amount_ >= price) {
 		just_purchased_ = true;
+		if (current_amount_ > price) {
+			coin_return_.push_back(QUARTER);
+		}
 		current_amount_ = 0;
 		dispensed_products_.push_back(product_to_dispense);
 	} else {
