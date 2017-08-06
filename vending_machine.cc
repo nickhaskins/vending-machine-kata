@@ -61,12 +61,12 @@ void VendingMachine::AddCoin(Coin coin) {
 			current_amount_ += 5;
 			break;
 		default:
-			coin_return_.push_back(coin);
+			coin_return_.insert(coin);
 			break;
 	}
 }
 
-std::vector<Coin> VendingMachine::GetCoinReturn() {
+std::multiset<Coin> VendingMachine::GetCoinReturn() {
 	return coin_return_;
 }
 
@@ -100,7 +100,7 @@ void VendingMachine::PurchaseProduct(Product product) {
 		}
 		std::vector<Coin> change = MakeChange(current_amount_ - price);
 		for (int i = 0; i < change.size(); ++i) {
-			coin_return_.push_back(change[i]);
+			coin_return_.insert(change[i]);
 		}
 		current_amount_ = 0;
 		dispensed_products_.push_back(product_to_dispense);

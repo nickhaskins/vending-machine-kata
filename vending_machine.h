@@ -1,6 +1,7 @@
 #ifndef VENDING_MACHINE_KATA_VENDING_MACHINE_H_
 #define VENDING_MACHINE_KATA_VENDING_MACHINE_H_
 
+#include <set>
 #include <string>
 #include <vector>
 
@@ -28,7 +29,7 @@ class VendingMachine {
 
   void AddCoin(Coin coin);
 
-  std::vector<Coin> GetCoinReturn();
+  std::multiset<Coin> GetCoinReturn();
 
   void PurchaseProduct(Product product);
 
@@ -41,7 +42,7 @@ class VendingMachine {
   std::string notification_;
 
   std::vector<std::string> dispensed_products_;
-  std::vector<Coin> coin_return_;
+  std::multiset<Coin> coin_return_;
   int colas_;
   int chips_;
   int candies_;

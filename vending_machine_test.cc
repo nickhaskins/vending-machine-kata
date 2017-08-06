@@ -39,8 +39,8 @@ TEST_F(VendingMachineTest, AddingMultipleCoinsSumsCurrentAmount) {
 TEST_F(VendingMachineTest, AddingPennyRejected) {
 	vending_machine_.AddCoin(PENNY);
 	EXPECT_EQ(vending_machine_.GetDisplay(), "INSERT COIN");
-	std::vector<Coin> expected_coin_return;
-	expected_coin_return.push_back(PENNY);
+	std::multiset<Coin> expected_coin_return;
+	expected_coin_return.insert(PENNY);
 	EXPECT_EQ(vending_machine_.GetCoinReturn(), expected_coin_return);
 }
 
@@ -119,8 +119,8 @@ TEST_F(VendingMachineTest, ReturnsChangeWhenCurrentAmountGreaterThanPrice) {
 	expected_products.push_back("chips");
 	EXPECT_EQ(vending_machine_.GetDispensedProducts(), expected_products);
 	EXPECT_EQ(vending_machine_.GetDisplay(), "THANK YOU");
-	std::vector<Coin> expected_coin_return;
-	expected_coin_return.push_back(QUARTER);
+	std::multiset<Coin> expected_coin_return;
+	expected_coin_return.insert(QUARTER);
 	EXPECT_EQ(vending_machine_.GetCoinReturn(),  expected_coin_return);
 }
 
@@ -133,8 +133,8 @@ TEST_F(VendingMachineTest, ChangeReturnedVariesBasedOnCurrentAmount) {
 	expected_products.push_back("chips");
 	EXPECT_EQ(vending_machine_.GetDispensedProducts(), expected_products);
 	EXPECT_EQ(vending_machine_.GetDisplay(), "THANK YOU");
-	std::vector<Coin> expected_coin_return;
-	expected_coin_return.push_back(NICKEL);
+	std::multiset<Coin> expected_coin_return;
+	expected_coin_return.insert(NICKEL);
 	EXPECT_EQ(vending_machine_.GetCoinReturn(),  expected_coin_return);
 }
 
