@@ -170,5 +170,65 @@ TEST_F(VendingMachineTest, DisplaysSoldOutDoesNotDispenseWhenOutOfProduct) {
 	EXPECT_EQ(vending_machine_.GetDisplay(), "SOLD OUT");
 }
 
+TEST_F(VendingMachineTest, ProductsSellOutSeparately) {
+	vending_machine_ = VendingMachine(1, 1, 1);
+
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.PurchaseProduct(COLA);
+	std::vector<std::string> expected_products;
+	expected_products.push_back("cola");
+	EXPECT_EQ(vending_machine_.GetDispensedProducts(), expected_products);
+	EXPECT_EQ(vending_machine_.GetDisplay(), "THANK YOU");
+
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.PurchaseProduct(COLA);
+	EXPECT_EQ(vending_machine_.GetDispensedProducts(),
+	          std::vector<std::string>());
+	EXPECT_EQ(vending_machine_.GetDisplay(), "SOLD OUT");
+	vending_machine_.ReturnCoins();
+
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.PurchaseProduct(CHIPS);
+	expected_products.clear();
+	expected_products.push_back("chips");
+	EXPECT_EQ(vending_machine_.GetDispensedProducts(), expected_products);
+	EXPECT_EQ(vending_machine_.GetDisplay(), "THANK YOU");
+
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.PurchaseProduct(CHIPS);
+	EXPECT_EQ(vending_machine_.GetDispensedProducts(),
+	          std::vector<std::string>());
+	EXPECT_EQ(vending_machine_.GetDisplay(), "SOLD OUT");
+	vending_machine_.ReturnCoins();
+
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(DIME);
+	vending_machine_.AddCoin(NICKEL);
+	vending_machine_.PurchaseProduct(CANDY);
+	expected_products.clear();
+	expected_products.push_back("candy");
+	EXPECT_EQ(vending_machine_.GetDispensedProducts(), expected_products);
+	EXPECT_EQ(vending_machine_.GetDisplay(), "THANK YOU");
+
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(QUARTER);
+	vending_machine_.AddCoin(DIME);
+	vending_machine_.AddCoin(NICKEL);
+	vending_machine_.PurchaseProduct(CANDY);
+	EXPECT_EQ(vending_machine_.GetDispensedProducts(),
+	          std::vector<std::string>());
+	EXPECT_EQ(vending_machine_.GetDisplay(), "SOLD OUT");
+	vending_machine_.ReturnCoins();
+}
+
 }  // namespace
 }  // namespace vending_machine_kata

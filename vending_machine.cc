@@ -72,33 +72,34 @@ std::multiset<Coin> VendingMachine::GetCoinReturn() {
 }
 
 void VendingMachine::PurchaseProduct(Product product) {
-	if (product == CANDY && candies_ == 0) {
-		display_notification_ = true;
-		notification_ = "SOLD OUT";
-		return;
-	}
 	int price = 0;
+	int* product_inventory;
 	std::string product_to_dispense = "";
 	switch (product) {
 		case COLA:
 			price = 100;
 			product_to_dispense = "cola";
+			product_inventory = &colas_;
 			break;
 		case CHIPS:
 			price = 50;
 			product_to_dispense = "chips";
+			product_inventory = &chips_;
 			break;
 		case CANDY:
 			price = 65;
 			product_to_dispense = "candy";
+			product_inventory = &candies_;
 			break;
 	}
-	if (current_amount_ >= price) {
+	if (*product_inventory <= 0) {
+		display_notification_ = true;
+		notification_ = "SOLD OUT";
+		return;
+	} else if (current_amount_ >= price) {
 		display_notification_ = true;
 		notification_ = "THANK YOU";
-		if (product == CANDY) {
-			candies_ -= 1;
-		}
+		*product_inventory -= 1;
 		std::multiset<Coin> change = MakeChange(current_amount_ - price);
 		coin_return_.insert(change.begin(), change.end());
 		current_amount_ = 0;
