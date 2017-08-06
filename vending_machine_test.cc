@@ -99,6 +99,13 @@ TEST_F(VendingMachineTest, ProductPriceAndDispensedDependsOnProduct) {
 	EXPECT_EQ(vending_machine_.GetDispensedProducts(),
 	          std::vector<std::string>());
 	EXPECT_EQ(vending_machine_.GetDisplay(), "PRICE 0.65");
+
+	vending_machine_.AddCoin(NICKEL);
+	vending_machine_.PurchaseProduct(CANDY);
+	expected_products.clear();
+	expected_products.push_back("candy");
+	EXPECT_EQ(vending_machine_.GetDispensedProducts(), expected_products);
+	EXPECT_EQ(vending_machine_.GetDisplay(), "THANK YOU");
 }
 
 }  // namespace

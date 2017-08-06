@@ -66,6 +66,7 @@ void VendingMachine::PurchaseProduct(Product product) {
 			break;
 		case CANDY:
 			price = 65;
+			product_to_dispense = "candy";
 			break;
 	}
 	if (current_amount_ == price) {
