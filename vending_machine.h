@@ -23,7 +23,9 @@ enum Product {
 
 class VendingMachine {
  public:
-  VendingMachine(int num_colas, int num_chips, int num_candies);
+  VendingMachine(int num_colas, int num_chips, int num_candies,
+                 int init_num_quarters, int init_num_dimes,
+				 int init_num_nickels);
 
   std::string GetDisplay();
 
@@ -48,6 +50,10 @@ class VendingMachine {
   int colas_;
   int chips_;
   int candies_;
+
+  int quarters_;
+  int dimes_;
+  int nickels_;
 };
 
 

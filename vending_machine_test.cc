@@ -7,7 +7,8 @@ namespace {
 
 class VendingMachineTest : public ::testing::Test {
  protected:
-  VendingMachineTest() : vending_machine_(5, 2, 1) {}
+  VendingMachineTest() : vending_machine_(5, 2, 1,
+                                          5, 5, 5) {}
 
   VendingMachine vending_machine_;
 };
@@ -25,7 +26,7 @@ TEST_F(VendingMachineTest, CurrentAmountDependsOnCoinAdded) {
 	vending_machine_.AddCoin(DIME);
 	EXPECT_EQ(vending_machine_.GetDisplay(), "0.10");
 
-	vending_machine_ = VendingMachine(5, 5, 5);
+	vending_machine_ = VendingMachine(5, 5, 5, 5, 5, 5);
 	vending_machine_.AddCoin(NICKEL);
 	EXPECT_EQ(vending_machine_.GetDisplay(), "0.05");
 }
@@ -171,7 +172,7 @@ TEST_F(VendingMachineTest, DisplaysSoldOutDoesNotDispenseWhenOutOfProduct) {
 }
 
 TEST_F(VendingMachineTest, ProductsSellOutSeparately) {
-	vending_machine_ = VendingMachine(1, 1, 1);
+	vending_machine_ = VendingMachine(1, 1, 1, 5, 5, 5);
 
 	vending_machine_.AddCoin(QUARTER);
 	vending_machine_.AddCoin(QUARTER);
@@ -228,6 +229,11 @@ TEST_F(VendingMachineTest, ProductsSellOutSeparately) {
 	          std::vector<std::string>());
 	EXPECT_EQ(vending_machine_.GetDisplay(), "SOLD OUT");
 	vending_machine_.ReturnCoins();
+}
+
+TEST_F(VendingMachineTest, DisplaysExactChangeWhenItHasNoCoins) {
+	vending_machine_ = VendingMachine(5, 5, 5, 0, 0, 0);
+	EXPECT_EQ(vending_machine_.GetDisplay(), "EXACT CHANGE ONLY");
 }
 
 }  // namespace

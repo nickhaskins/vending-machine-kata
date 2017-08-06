@@ -35,16 +35,24 @@ std::string FormatMoneyString(int amount_in_cents) {
 
 }  // namespace
 
-VendingMachine::VendingMachine(int num_colas, int num_chips, int num_candies)
+VendingMachine::VendingMachine(int num_colas, int num_chips, int num_candies,
+                               int init_num_quarters, int init_num_dimes,
+							   int init_num_nickels)
     : current_amount_(0), display_notification_(false),
-	  colas_(num_colas), chips_(num_chips), candies_(num_candies) {}
+	  colas_(num_colas), chips_(num_chips), candies_(num_candies),
+	  quarters_(init_num_quarters), dimes_(init_num_dimes),
+	  nickels_(init_num_nickels) {}
 
 std::string VendingMachine::GetDisplay() {
 	if (display_notification_) {
 		display_notification_ = false;
 		return notification_;
 	} else if (current_amount_ == 0) {
-		return "INSERT COIN";
+		if (quarters_ == 0 && dimes_ == 0 && nickels_ == 0) {
+			return "EXACT CHANGE ONLY";
+		} else {
+			return "INSERT COIN";
+		}
 	} else {
 		return FormatMoneyString(current_amount_);
 	}
