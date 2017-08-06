@@ -118,6 +118,7 @@ std::vector<std::string> VendingMachine::GetDispensedProducts() {
 void VendingMachine::ReturnCoins() {
 	std::multiset<Coin> to_return = MakeChange(current_amount_);
 	coin_return_.insert(to_return.begin(), to_return.end());
+	current_amount_ = 0;
 }
 
 

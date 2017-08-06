@@ -146,6 +146,7 @@ TEST_F(VendingMachineTest, ReturnsCoinsWhenRequested) {
 	expected_coin_return.insert(NICKEL);
 	expected_coin_return.insert(QUARTER);
 	EXPECT_EQ(vending_machine_.GetCoinReturn(), expected_coin_return);
+	EXPECT_EQ(vending_machine_.GetDisplay(), "INSERT COIN");
 }
 
 TEST_F(VendingMachineTest, DisplaysSoldOutDoesNotDispenseWhenOutOfProduct) {
