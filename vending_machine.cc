@@ -22,13 +22,13 @@ std::string VendingMachine::GetDisplay() const {
 void VendingMachine::AddCoin(Coin coin) {
 	switch (coin) {
 		case QUARTER:
-			current_amount_ = 25;
+			current_amount_ += 25;
 			break;
 		case DIME:
-			current_amount_ = 10;
+			current_amount_ += 10;
 			break;
 		case NICKEL:
-			current_amount_ = 5;
+			current_amount_ += 5;
 			break;
 		default:
 			break;
