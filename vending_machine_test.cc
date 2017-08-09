@@ -231,6 +231,16 @@ TEST_F(VendingMachineTest, ProductsSellOutSeparately) {
 	vending_machine_.ReturnCoins();
 }
 
+// It seems like there's some insight I'm missing here about when exact change
+// would be required or how the machine would get in that state.  Being able to
+// make change depends on what coins there are in the machine, what money the
+// customer gives, and what the price is of the item being purchased, so the
+// machine wouldn't necessarily be unable to make change unless it had no coins
+// at all.  Also, unless the machine is emptied of coins through some other
+// process, such as never having any as I've set up here, it doesn't seem
+// possible for it to run out of *all* coins, as a customer always has to
+// provide some coins that the machine will not return.  Like I say, it seems
+// like there's something I'm missing about this part of the kata.
 TEST_F(VendingMachineTest, DisplaysExactChangeWhenItHasNoCoins) {
 	vending_machine_ = VendingMachine(5, 5, 5, 0, 0, 0);
 	EXPECT_EQ(vending_machine_.GetDisplay(), "EXACT CHANGE ONLY");
